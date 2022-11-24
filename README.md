@@ -30,12 +30,15 @@ Si avranno quindi 5 neuroni di selezione andatura (G_i) ognuno dei quali attiver
 Unità Fondamentale CPG: HCO (Half-Center Oscillator)
 ------------------------------
 
-Meccanismo di Inibizione Reciproca: quando N1 è attivo eccita l'interneurone inibitorio che va ad inibire N2
+La generazione del ritmo nelle reti CPG dipende dalle proprietà intrinseche dei neuroni CPG e dalle loro connessioni sinaptiche.
+Un meccanismo è quello dell'Inibizione Reciproca: quando N1 è attivo eccita l'interneurone inibitorio che va ad inibire N2.
 
 Quindi, attraverso meccanismi ritmici si attivano i neuroni che controllano il motoneurone alfa del muscolo flessore oppure quelli che controllano il motoneurone alfa del muscolo estensore. (Non sono mai attivi contemporaneamente!!!) 
 Tali neuroni posssono modulare la propria frequenza in fuznione dei segnali provenienti dal centro superiore.
 
 In questo caso ho due celle reciprocamente inibite: l'HCO si occupa della regolazione dei muscoli flessori ed estensori della singola zampa. Quindi, ogni CPG può essere attivato in modo indipendente.
+
+
 
 
 
