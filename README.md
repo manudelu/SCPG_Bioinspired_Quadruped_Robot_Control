@@ -14,11 +14,6 @@ Funzione dei CPG: selezione di quali muscoli devono essere attivati (intensità 
 
 I segnali esterni modificano, a loro volta, il comportamento dei CPG sulla base di feedback sensoriali e vestibolari, permettendo cambiamenti di andatura e adattamento agli ostacoli. Di conseguenza, il CPG deve essere in grado di modificare la propria dinamica per poter generare andature e velocità diverse.
 
-Sources: 
-
-* Sintesi di Central Pattern Generator in grado di produrre ritmi prestabiliti ([link](https://web.uniroma1.it/et2018/sites/default/files/memorie/Lodi.pdf))
-* Central Pattern Generators ([link](https://en.wikipedia.org/wiki/Central_pattern_generator))
-
 Obiettvo: Locomozione Quadrupede (Bioloid Dog)
 --------------------------------
 
@@ -45,8 +40,14 @@ Una cosa importante è che i motoneuroni che generano questa attività possono m
 
 In questo caso ho due neuroni reciprocamente inibiti: l'HCO si occupa della regolazione dei muscoli flessori ed estensori della singola zampa. Quindi, ogni CPG può essere attivato in modo indipendente.
 
+Sources: 
 
-
+* Sintesi di Central Pattern Generator in grado di produrre ritmi prestabiliti ([link](https://web.uniroma1.it/et2018/sites/default/files/memorie/Lodi.pdf))
+* An End-to-End Spiking Neural Network Platform for Edge Robotics: From Event-Cameras to Central Pattern Generation ([link](https://ieeexplore.ieee.org/document/9486868))
+* Towards more biologically plausible central-pattern-generator models ([link](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.104.064405))
+* A Reactive Controller Framework for Quadrupedal Locomotion on Challenging Terrain ([link](https://ieeexplore.ieee.org/document/6630926))
+* WCPG: A Central Pattern Generator for Legged Robots Based on Workspace
+Intentions ([link](https://www.researchgate.net/publication/267491765_WCPG_A_Central_Pattern_Generator_for_Legged_Robots_Based_on_Workspace_Intentions))
 
 
 
