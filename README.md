@@ -39,13 +39,11 @@ HCO (Half-Center Oscillator)
 
 La generazione del ritmo nelle reti CPG dipende dalle proprietà intrinseche dei neuroni CPG e dalle loro connessioni sinaptiche.
 
-L’unità fondamentale del CPG è la cella, ossia una popolazione di neuroni sincronizzati tra loro.
-Un meccanismo è quello dell'Inibizione Reciproca: quando N1 è attivo eccita l'interneurone inibitorio che va ad inibire N2. 
+I circuiti che generano questa attività ritmica alternata sono stati evidenziati principalmente a livello del midollo spinale e si basano su dei circuiti a semicentro (half-center). Il ruolo dei neuroni grigi in figura è quello di produrre un’inibizione reciproca: ovvero, quando N1 è attivo eccita l’interneurone inibitorio che va ad inibire quello antagonista N2. Quindi, attraverso dei meccanismi ritmici, sono attivi i neuroni che controllano il motoneurone alfa del muscolo flessore oppure quelli che controllano il motoneurone alfa del muscolo estensore. (Non sono mai attivi contemporaneamente!!!) 
 
-Quindi, attraverso meccanismi ritmici si attivano i neuroni che controllano il motoneurone alfa del muscolo flessore oppure quelli che controllano il motoneurone alfa del muscolo estensore. (Non sono mai attivi contemporaneamente!!!) 
-Tali neuroni posssono modulare la propria frequenza in fuznione dei segnali provenienti dal centro superiore.
+Una cosa importante è che i motoneuroni che generano questa attività possono modulare la loro frequenza in funzione ai segnali che provengono dal centro superiore. Normalmente questi circuiti generano un’attività ritmica basale (associata ad una certa frequenza di attività). Per aumentare o diminuire tale frequenza è necessario che un segnale proveniente dai centri superiori vada a stimolare questi circuiti. Quindi questi circuiti da soli non possono modificare l’attività ritmica locomotoria, per poter modulare tale attività è necessario un segnale che provenga dai centri superiori.
 
-In questo caso ho due celle reciprocamente inibite: l'HCO si occupa della regolazione dei muscoli flessori ed estensori della singola zampa. Quindi, ogni CPG può essere attivato in modo indipendente.
+In questo caso ho due neuroni reciprocamente inibiti: l'HCO si occupa della regolazione dei muscoli flessori ed estensori della singola zampa. Quindi, ogni CPG può essere attivato in modo indipendente.
 
 
 
