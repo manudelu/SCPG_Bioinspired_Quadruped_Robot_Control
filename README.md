@@ -34,6 +34,9 @@ Si avranno quindi 5 neuroni di selezione andatura (G_i) ognuno dei quali attiver
 
 HCO (Half-Center Oscillator)
 ------------------------------
+
+![](images/HCO.PNG)
+
 La generazione del ritmo nelle reti CPG dipende dalle proprietà intrinseche dei neuroni CPG e dalle loro connessioni sinaptiche.
 
 L’unità fondamentale del CPG è la cella, ossia una popolazione di neuroni sincronizzati tra loro.
