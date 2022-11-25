@@ -1,1 +1,53 @@
+Explanation
+----------
+
+Note: 
+
+* Ni = quadruped legs
+* ti = time instances
+
+Spiking Patterns:
+
+* Walk: 
+N1  1  0  0  0
+N2  0  0  1  0
+N3  0  0  0  1
+N3  0  1  0  0
+   t1 t2 t3 t4
+   
+* Trot:
+N1  1  0
+N2  0  1
+N3  1  0
+N4  0  1
+   t1 t2
+
+* Bound:
+N1  1  0
+N2  1  0
+N3  0  1
+N4  0  1
+   t1 t2
+ 
+* Diagonal Walk:
+N1  1  0  0  0
+N2  0  0  1  0
+N3  0  1  0  0
+N4  0  0  0  1
+   t1 t2 t3 t4
+   
+* Gallop: 
+N1  1  0  0  0
+N2  0  1  0  0
+N3  0  0  1  0
+N4  0  0  0  1
+   t1 t2 t3 t4
+
+Each gait sequence must be repeated more than once during the learning process, otherwise you get a network that cannot stably reproduce gait. So we set a number of repetitions reps = 10.
+
+
+Gaits:
+
 ![](images/Gaits.png)
+
+
