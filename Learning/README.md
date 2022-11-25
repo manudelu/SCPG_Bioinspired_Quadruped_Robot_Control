@@ -1,12 +1,8 @@
-Explanation
-----------
-
-Note: 
-
-* Ni = quadruped legs
-* ti = time instances
+Learning Algorithm
+==========================================
 
 Spiking Patterns:
+--------------------------------
 
 * Walk: 
 
@@ -50,6 +46,10 @@ N4  0  0  0  1
 
 Each gait sequence must be repeated more than once during the learning process, otherwise you get a network that cannot stably reproduce gait. So we set a number of repetitions reps = 10.
 
+Remark: 
+
+* Ni = quadruped legs
+* ti = time instances
 
 Gaits:
 
