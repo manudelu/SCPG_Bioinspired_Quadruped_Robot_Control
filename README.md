@@ -49,6 +49,7 @@ Sources
 * A Reactive Controller Framework for Quadrupedal Locomotion on Challenging Terrain ([link](https://ieeexplore.ieee.org/document/6630926))
 * WCPG: A Central Pattern Generator for Legged Robots Based on Workspace
 Intentions ([link](https://www.researchgate.net/publication/267491765_WCPG_A_Central_Pattern_Generator_for_Legged_Robots_Based_on_Workspace_Intentions))
+* A. Lele, Y. Fang, J. Ting and A. Raychowdhury, "An End-to-End Spiking Neural Network Platform for Edge Robotics: From Event-Cameras to Central Pattern Generation," in IEEE Transactions on Cognitive and Developmental Systems, vol. 14, no. 3, pp. 1092-1103, Sept. 2022, doi: 10.1109/TCDS.2021.3097675.
 
 
 
