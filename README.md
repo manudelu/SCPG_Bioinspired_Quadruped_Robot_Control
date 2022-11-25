@@ -43,12 +43,10 @@ In questo caso ho due neuroni reciprocamente inibiti: l'HCO si occupa della rego
 Sources
 -------------------------------
 
-* Sintesi di Central Pattern Generator in grado di produrre ritmi prestabiliti ([link](https://web.uniroma1.it/et2018/sites/default/files/memorie/Lodi.pdf))
-* Towards more biologically plausible central-pattern-generator models ([link](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.104.064405))
-* A Reactive Controller Framework for Quadrupedal Locomotion on Challenging Terrain ([link](https://ieeexplore.ieee.org/document/6630926))
-* WCPG: A Central Pattern Generator for Legged Robots Based on Workspace
-Intentions ([link](https://www.researchgate.net/publication/267491765_WCPG_A_Central_Pattern_Generator_for_Legged_Robots_Based_on_Workspace_Intentions))
+* Baruzzi V, Lodi M, Storace M, Shilnikov A. Towards more biologically plausible central-pattern-generator models. Phys Rev E. 2021 Dec;104(6-1):064405. doi: 10.1103/PhysRevE.104.064405. PMID: 35030894.
 * A. Lele, Y. Fang, J. Ting and A. Raychowdhury, "An End-to-End Spiking Neural Network Platform for Edge Robotics: From Event-Cameras to Central Pattern Generation," in IEEE Transactions on Cognitive and Developmental Systems, vol. 14, no. 3, pp. 1092-1103, Sept. 2022, doi: 10.1109/TCDS.2021.3097675.
+* Barasuol, Victor & De Negri, Victor & De Pieri, Edson. (2011). WCPG: A Central Pattern Generator for Legged Robots Based on Workspace Intentions. ASME 2011 Dynamic Systems and Control Conference and Bath/ASME Symposium on Fluid Power and Motion Control, DSCC 2011. 2. 10.1115/DSCC2011-6164. 
+* V. Barasuol, J. Buchli, C. Semini, M. Frigerio, E. R. De Pieri and D. G. Caldwell, "A reactive controller framework for quadrupedal locomotion on challenging terrain," 2013 IEEE International Conference on Robotics and Automation, 2013, pp. 2554-2561, doi: 10.1109/ICRA.2013.6630926.
 
 
 
