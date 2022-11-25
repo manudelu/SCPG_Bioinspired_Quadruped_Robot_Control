@@ -1,1 +1,1 @@
-![](Learning/images//Gaits.png)
+![](Learning/images/Gaits.png)
