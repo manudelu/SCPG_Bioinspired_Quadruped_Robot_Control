@@ -44,7 +44,6 @@ Sources
 -------------------------------
 
 * Sintesi di Central Pattern Generator in grado di produrre ritmi prestabiliti ([link](https://web.uniroma1.it/et2018/sites/default/files/memorie/Lodi.pdf))
-* An End-to-End Spiking Neural Network Platform for Edge Robotics: From Event-Cameras to Central Pattern Generation ([link](https://ieeexplore.ieee.org/document/9486868))
 * Towards more biologically plausible central-pattern-generator models ([link](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.104.064405))
 * A Reactive Controller Framework for Quadrupedal Locomotion on Challenging Terrain ([link](https://ieeexplore.ieee.org/document/6630926))
 * WCPG: A Central Pattern Generator for Legged Robots Based on Workspace
