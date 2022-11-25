@@ -40,7 +40,8 @@ Una cosa importante è che i motoneuroni che generano questa attività possono m
 
 In questo caso ho due neuroni reciprocamente inibiti: l'HCO si occupa della regolazione dei muscoli flessori ed estensori della singola zampa. Quindi, ogni CPG può essere attivato in modo indipendente.
 
-Sources: 
+Sources
+-------------------------------
 
 * Sintesi di Central Pattern Generator in grado di produrre ritmi prestabiliti ([link](https://web.uniroma1.it/et2018/sites/default/files/memorie/Lodi.pdf))
 * An End-to-End Spiking Neural Network Platform for Edge Robotics: From Event-Cameras to Central Pattern Generation ([link](https://ieeexplore.ieee.org/document/9486868))
