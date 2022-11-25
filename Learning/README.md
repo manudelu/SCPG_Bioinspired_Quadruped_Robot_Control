@@ -9,10 +9,15 @@ Note:
 Spiking Patterns:
 
 * Walk: 
+
 N1  1  0  0  0
+
 N2  0  0  1  0
+
 N3  0  0  0  1
+
 N3  0  1  0  0
+
    t1 t2 t3 t4
    
 * Trot:
