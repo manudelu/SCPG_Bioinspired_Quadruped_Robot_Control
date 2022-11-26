@@ -62,7 +62,13 @@ The SCPG network is composed of four fully connected neurons that generate gait 
 
 The leaking current is modelled with a decay factor α (α must be > 1 in order to be physically reasonable, we used ```α = 1.1```). When the membrane potential Vj exceeds the spiking threshold Vth, a spike is fired and the membrane potential is instantly reset to the resting potential, which is zero. A pre-synaptic spike, Si,  results in the increment of the membrane potential of the post-synaptic neurons. The synaptic weights (Wij) scale the inputs from the presynaptic neurons (i-th neuron) to the post-synaptic neuron (j-th neuron) as shown in the equation. Therefore, the membrane voltage increase caused by the pre-synaptic spike occurs in the immediate next cycle. 
 
+With that said, the training problem is to program the weight matrices so that when a gait selection neuron fires, the desired sets of CPG neurons fire in the next few time steps to generate the gait pattern. We use a supervised weight update algorithm to program the synaptic weights in the network. To start, all the weights are initialized randomly. In the beginning, the obtained and the required spiking patterns are not identical. The algorithm tries to make the required and
+obtained spiking patterns identical. If the obtained and required spike patterns of the SCPG are the same then the neuron is firing correctly, thus the weights need no further modification. The total number of erroneous firings at every time step is called error. This procedure of stochastic updates is repeated for every gait.
+
+
 
 ![](images/Gaits.png)
 
+Further details in:
 
+A. Lele, Y. Fang, J. Ting and A. Raychowdhury, "An End-to-End Spiking Neural Network Platform for Edge Robotics: From Event-Cameras to Central Pattern Generation," in IEEE Transactions on Cognitive and Developmental Systems, vol. 14, no. 3, pp. 1092-1103, Sept. 2022, doi: 10.1109/TCDS.2021.3097675.
