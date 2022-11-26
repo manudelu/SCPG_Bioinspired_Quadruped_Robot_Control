@@ -49,7 +49,7 @@ Spiking Patterns:
 | N3 | 0 | 0 | 1 | 0 |
 | N3 | 0 | 0 | 0 | 1 |
 
-Each gait sequence (Walk, Trot, Bound, Diagonal Walk and Gallop) must be repeated more than once during the learning process, otherwise you'll get a network that cannot stably reproduce gait. So we set a number of repetitions reps = 10.
+Each gait sequence (Walk, Trot, Bound, Diagonal Walk and Gallop) must be repeated more than once during the learning process, otherwise you'll get a network that cannot stably reproduce gait. So we set a number of repetitions: ```reps = 10```.
 
 Remark: 
 
