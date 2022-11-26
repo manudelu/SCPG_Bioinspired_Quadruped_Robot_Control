@@ -56,6 +56,8 @@ Remark:
 * N_i = Neurons
 * t_i = Time Instances
 
+![](images/Gaits.png)
+
  The Network Structure of the Central Pattern Generator
  -----------------------------------
 
@@ -67,8 +69,6 @@ The leaking current is modelled with a decay factor α (α must be > 1 in order 
 
 With that said, the training problem is to program the weight matrices so that when a gait selection neuron fires, the desired sets of CPG neurons fire in the next few time steps to generate the gait pattern. We use a supervised weight update algorithm to program the synaptic weights in the network. To start, all the weights are initialized randomly. In the beginning, the obtained and the required spiking patterns are not identical. The algorithm tries to make the required and
 obtained spiking patterns identical. If the obtained and required spike patterns of the SCPG are the same then the neuron is firing correctly, thus the weights need no further modification. The total number of erroneous firings at every time step is called error. This procedure of stochastic updates is repeated for every gait.
-
-![](images/Gaits.png)
 
 Convergence
 -------------------
