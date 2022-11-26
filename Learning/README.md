@@ -60,6 +60,8 @@ The SCPG network is composed of four fully connected neurons that generate gait 
 
 ![](https://latex.codecogs.com/png.latex?%5Cbg_white%20Vj%5Bt&plus;1%5D%20%3D%20%5Cfrac%7BVj%5Bt%5D%7D%7B%5Calpha%7D%20&plus;%20%5Csum_%7Bi%7DW_i_jS_i%5Bt%5D)
 
+if Vj[t] > Vth then Sj[t+1] = 1, Vj[t+1] = 0
+
 Gaits:
 
 ![](images/Gaits.png)
