@@ -53,8 +53,10 @@ Each gait sequence (Walk, Trot, Bound, Diagonal Walk and Gallop) must be repeate
 
 Remark: 
 
-* Ni = quadruped legs
-* ti = time instances
+* N_i = Neurons
+* t_i = Time Instances
+
+ All neurons are connected to each other. The leg corresponding to a neuron moves when that neuron fires.
 
 Gaits:
 
