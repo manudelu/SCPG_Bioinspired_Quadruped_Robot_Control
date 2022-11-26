@@ -4,43 +4,43 @@ Implementation of a Spiking Neuronal Network for Quadruped Robot Control
 CPGs - Central Pattern Generators
 --------------------------------
 
-Negli esseri viventi un CPG è una rete di neuroni relativamente piccola in grado di produrre pattern ritmici anche in assenza di feedback sensoriali o di segnali provenienti dal sistema nervoso centrale (SNC). 
+In living things, a CPG is a relatively small network of neurons capable of producing rhythmic patterns even in the absence of sensory feedback or signals from the central nervous system (CNS).
 
-Tal reti sono fondamentali per molte funzioni vitali dato che generano i segnali che scandiscono movimenti quali la locomozione, la respirazione, la masticazione ed altre attività ritmiche.
+Such networks are critical for many vital functions since they generate the signals that mark movements such as locomotion, breathing, chewing and other rhythmic activities.
 
-Nei vertebrati, i CPG sono posizionati a livello della spina dorsale ed il controllo dell'attività motoria dipende sia da feedback sensoriali (es. riflessi miotatico/flessorio/ecc...) sia da reti sovraspinali, che, sulla base di una pianificazione solitamente legata a sistemi visivi (es. cambi di ritmo basati sul percorso che si deve compiere) attivano i CPG, determinando l'andatura dell'animale.
+In vertebrates, CPGs are located at the level of the spine and the control of motor activity depends on both sensory feedback and supraspinal networks, which, based on planning usually linked to visual systems (e.g., changes of rhythm based on the path to be taken) activate the CPGs, determining the animal's gait.
 
-Funzione dei CPG: selezione di quali muscoli devono essere attivati (intensità e tempo): pattern di movimento caratterizzati da forze e velocità variabili. 
+Function of CPGs: selection of which muscles are to be activated (intensity and time): movement patterns characterized by varying forces and velocities.
 
-I segnali esterni modificano, a loro volta, il comportamento dei CPG sulla base di feedback sensoriali e vestibolari, permettendo cambiamenti di andatura e adattamento agli ostacoli. Di conseguenza, il CPG deve essere in grado di modificare la propria dinamica per poter generare andature e velocità diverse.
+External signals, in turn, modify CPG behavior based on sensory and vestibular feedback, allowing changes in gait and adaptation to obstacles. Consequently, the CPG must be able to change its dynamics in order to generate different gaits and velocities.
 
-Obiettvo: Locomozione Quadrupede (Bioloid Dog)
+Objective: Quadruped Locomotion (Bioloid Dog)
 --------------------------------
 
-Questo è in grado di generare diverse tipologie di andature, in questo caso verranno studiate:
+This is capable of generating different types of gaits, in this case will be studied:
 
-* Camminata (Walk)
-* Trotto (Trot)
-* Galoppo (Gallop)
-* Camminata Diagonale (Diagonal Walk)
-* Saltello (Bound)
+* Walk 
+* Trot 
+* Gallop 
+* Diagonal Walk 
+* Bound 
 
-Si avranno quindi 5 neuroni di selezione andatura (G_i) ognuno dei quali attiverà un diverso pattern in funzione del movimento delle gambe richiesto per tale andamento.
+There will then be 5 gait selection neurons (G_i) each of which will activate a different pattern depending on the leg movement required for that pattern.
 
 HCO (Half-Center Oscillator)
 ------------------------------
 
 ![](images/Half-Center_Oscillator.PNG)
 
-La generazione del ritmo nelle reti CPG dipende dalle proprietà intrinseche dei neuroni CPG e dalle loro connessioni sinaptiche.
+Rhythm generation in CPG networks depends on the intrinsic properties of CPG neurons and their synaptic connections.
 
-I circuiti che generano questa attività ritmica alternata sono stati evidenziati principalmente a livello del midollo spinale e si basano su dei circuiti a semicentro (half-center). Il ruolo dei neuroni inibitori (rossi) in figura è quello di produrre un’inibizione reciproca: ovvero, quando N1 è attivo eccita l’interneurone inibitorio che va ad inibire quello antagonista N2. Quindi, attraverso dei meccanismi ritmici, sono attivi i neuroni che controllano il motoneurone alfa del muscolo flessore oppure quelli che controllano il motoneurone alfa del muscolo estensore. (Non sono mai attivi contemporaneamente!!!) 
+The circuits that generate this alternating rhythmic activity have been highlighted mainly at the level of the spinal cord and are based on half-center circuits. The role of the inhibitory (red) neurons in the figure is to produce reciprocal inhibition: that is, when N1 is active it excites the inhibitory interneuron, which goes on to inhibit the antagonistic N2 one. Thus, through rhythmic mechanisms, either the neurons controlling the alpha motor neuron of the flexor muscle or those controlling the alpha motor neuron of the extensor muscle are active. (They are never active at the same time!!!) 
 
-Una cosa importante è che i motoneuroni che generano questa attività possono modulare la loro frequenza in funzione ai segnali che provengono dal centro superiore. Normalmente questi circuiti generano un’attività ritmica basale (associata ad una certa frequenza di attività). Per aumentare o diminuire tale frequenza è necessario che un segnale proveniente dai centri superiori vada a stimolare questi circuiti. Quindi questi circuiti da soli non possono modificare l’attività ritmica locomotoria, per poter modulare tale attività è necessario un segnale che provenga dai centri superiori.
+One important thing is that the motor neurons generating this activity can modulate their frequency according to the signals coming from the higher center. Normally these circuits generate basal rhythmic activity (associated with a certain frequency of activity). To increase or decrease this frequency requires a signal from the higher centers to go to stimulate these circuits. So these circuits alone cannot change the locomotor rhythmic activity; in order to modulate this activity, a signal from the higher centers is needed.
 
-In questo caso ho due neuroni reciprocamente inibiti: l'HCO si occupa della regolazione dei muscoli flessori ed estensori della singola zampa. Quindi, ogni CPG può essere attivato in modo indipendente.
+In this case I have two mutually inhibited neurons: the HCO is in charge of regulating the flexor and extensor muscles of the single leg. Thus, each CPG can be activated independently.
 
-Sources
+Bibliography
 -------------------------------
 
 * Baruzzi V, Lodi M, Storace M, Shilnikov A. Towards more biologically plausible central-pattern-generator models. Phys Rev E. 2021 Dec;104(6-1):064405. doi: 10.1103/PhysRevE.104.064405. PMID: 35030894.
