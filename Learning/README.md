@@ -64,7 +64,6 @@ if Vj[t] > Vth then Sj[t+1] = 1, Vj[t+1] = 0
 
 The leaking current is modelled with a decay factor α. When the membrane potential exceeds the spiking threshold Vth, a spike is fired and the membrane potential is instantly reset to the resting potential, which is zero. A pre-synaptic spike, Si results in the increment of the membrane potential of the post-synaptic neurons. The synaptic weights (Wij) scale the inputs from the presynaptic neurons (i-th neuron) to the post-synaptic neuron (j-th neuron) as shown in the equation. Therefore, the membrane voltage increase caused by the pre-synaptic spike occurs in the immediate next cycle. 
 
-Gaits:
 
 ![](images/Gaits.png)
 
