@@ -56,7 +56,12 @@ Remark:
 * N_i = Neurons
 * t_i = Time Instances
 
- All neurons are connected to each other. The leg corresponding to a neuron moves when that neuron fires.
+All neurons are connected to each other. The leg corresponding to a neuron moves when that neuron fires. So, when the motor neurons driving legs fire with
+fixed temporal differences this gives a rhythmic motion of legs causing a gait.
+
+Multi-gait SCPG 
+
+We have five gait selection neurons corresponding to the five gaits. Each ```Gi``` elicits a different spiking pattern corresponding to the motion of the legs required in that gait. The weights are updated using the difference between required and obtained spiking of CPG neurons which determines whether to excite or suppress the spiking of that neuron.
 
 Gaits:
 
