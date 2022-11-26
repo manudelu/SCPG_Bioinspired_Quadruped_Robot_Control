@@ -25,7 +25,9 @@ This is capable of generating different types of gaits, in this case will be stu
 * Diagonal Walk 
 * Bound 
 
-There will then be 5 gait selection neurons (G_i) each of which will activate a different pattern depending on the leg movement required for that pattern.
+There will then be 5 gait selection neurons (G_i) each of which will activate a different pattern depending on the leg movement required for that pattern. 
+
+Remark: More details will be described in the README within the folder named Learning.
 
 HCO (Half-Center Oscillator)
 ------------------------------
