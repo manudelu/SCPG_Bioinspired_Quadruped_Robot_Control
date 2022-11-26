@@ -60,9 +60,7 @@ The SCPG network is composed of four fully connected neurons that generate gait 
 
 ![](https://latex.codecogs.com/png.latex?%5Cbg_white%20Vj%5Bt&plus;1%5D%20%3D%20%5Cfrac%7BVj%5Bt%5D%7D%7B%5Calpha%7D%20&plus;%20%5Csum_%7Bi%7DW_i_jS_i%5Bt%5D) 
 
-if Vj[t] > Vth then Sj[t+1] = 1, Vj[t+1] = 0
-
-The leaking current is modelled with a decay factor α. When the membrane potential exceeds the spiking threshold Vth, a spike is fired and the membrane potential is instantly reset to the resting potential, which is zero. A pre-synaptic spike, Si results in the increment of the membrane potential of the post-synaptic neurons. The synaptic weights (Wij) scale the inputs from the presynaptic neurons (i-th neuron) to the post-synaptic neuron (j-th neuron) as shown in the equation. Therefore, the membrane voltage increase caused by the pre-synaptic spike occurs in the immediate next cycle. 
+The leaking current is modelled with a decay factor α (α must be > 1 in order to be physically reasonable, we used ```α = 1.1```). When the membrane potential Vj exceeds the spiking threshold Vth, a spike is fired and the membrane potential is instantly reset to the resting potential, which is zero. A pre-synaptic spike, Si,  results in the increment of the membrane potential of the post-synaptic neurons. The synaptic weights (Wij) scale the inputs from the presynaptic neurons (i-th neuron) to the post-synaptic neuron (j-th neuron) as shown in the equation. Therefore, the membrane voltage increase caused by the pre-synaptic spike occurs in the immediate next cycle. 
 
 
 ![](images/Gaits.png)
