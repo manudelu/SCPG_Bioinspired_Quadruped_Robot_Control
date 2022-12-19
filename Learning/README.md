@@ -76,6 +76,8 @@ Convergence
 In this section, we analyze the capacity of the algorithm to store multiple gaits on a single CPG. Due to the stochasticity of the weight adaptation algorithm, not all simulation trials achieve convergence. Also, as the number of gaits increases, the percentage of correct convergences is expected to drop. Thus, we choose a different number of gaits to be programmed and run 100 iterations for each (```n_trials = 100```). Then we identify the number of instances of all gaits being correctly learnt to obtain the percentage of cases where the system convergences correctly. In this case we observed that a maximum of three gaits can be learnt with a high convergence
 rate of (> 80%). The convergence rate steeply drops when four gaits are to be simultaneously learnt to (∼ 20%) and also with five gaits (1%). More than five unique gaits cannot be simultaneously learnt in the current algorithm.
 
+Remark: ```Learning Rate = 0.1``` , low values of Learning Rate allow a higher percentage of convergence. An attempt was made by using 0.01 instead of 0.1 (wrt. five gaits) but an acceptable result was not obtained but 0% convergence.
+
 Biblioagraphy
 -----------------
 
