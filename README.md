@@ -17,6 +17,8 @@ External signals, in turn, modify CPG behavior based on sensory and vestibular f
 Objective: Quadruped Locomotion (Bioloid Dog)
 --------------------------------
 
+The legs of the quadruped robot are controlled by a network of spiking neurons. A typical network consists of four fully connected neurons where the spiking of a neuron causes the corresponding leg to move. Therefore, producing a gait corresponds to tuning the synaptic weights in the network to cause a specific sequence of spiking in the neurons. Execution of specific tasks requires transitioning between gaits to alter the speed and direction of motion. Thus, the objective is to produce multiple gaits on a single CPG each of which can be triggered independently with seamless transitions, depending upon the environment.
+
 This is capable of generating different types of gaits, in this case will be studied:
 
 * Walk 
