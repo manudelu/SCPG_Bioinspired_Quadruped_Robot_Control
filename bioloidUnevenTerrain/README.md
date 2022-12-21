@@ -43,7 +43,7 @@ Remark: The last term in (3) is the coupling term that allows independent modula
 
 The output filter is written as
 
-![](images/Explanation.PNG)
+![](images/OutputFilter.PNG)
 
 (7) and (8) are responsible for switching the behaviour of the limit cycle between swing and stance phases according to the touchdown position. The higher the value of the constants bp and bf, the faster the transitions between swing and stance phase behaviours. 
 
