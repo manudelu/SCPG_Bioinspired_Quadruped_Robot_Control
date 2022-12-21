@@ -39,7 +39,9 @@ The equations governing the network of oscillator inspired by the CPG are the fo
 ![](images/EquationOscillator.PNG)
 ![](images/Explanation.PNG)
 
-Remark: The last term in (3) is the coupling term that allows independent modulation of each step height without disturbing the synchronization. The gait pattern is selected according to the coupling matrix C. --> We will not use this term!!
+Remark: 
+* The last term in (3) is the coupling term that allows independent modulation of each step height without disturbing the synchronization. The gait pattern is selected according to the coupling matrix C. --> We will not use this term!!
+* Also, we eill consider (2) = 0.
 
 The output filter is written as
 
