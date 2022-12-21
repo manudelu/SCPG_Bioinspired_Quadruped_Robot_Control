@@ -41,6 +41,14 @@ The equations governing the network of oscillator inspired by the CPG are the fo
 
 Remark: The last term in (3) is the coupling term that allows independent modulation of each step height without disturbing the synchronization. The gait pattern is selected according to the coupling matrix C. --> We will not use this term!!
 
+The output filter is written as
+
+![](images/Explanation.PNG)
+
+(7) and (8) are responsible for switching the behaviour of the limit cycle between swing and stance phases according to the touchdown position. The higher the value of the constants bp and bf, the faster the transitions between swing and stance phase behaviours. 
+
+The step depth parameter Ztd affects the reshaping of the trajectory by determining at which height the ellipse has to be interrupted. If a terrain map is available the swing to stance transition can be planned in advance, reducing the impact forces. In absence of a map (i.e. the robot is walking blindly), the feet trajectories can be dynamically adjusted as soon as touchdown is detected; this feature makes the locomotion more robust also with respect to poor state estimation. During the execution of the trajectory, the foot touchdown event is recognized; Ztd is consequently adjusted to match the actual step height/depth and the filter changes the shape of the trajectory.
+
 
 Bibliography
 ------------
