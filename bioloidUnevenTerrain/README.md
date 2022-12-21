@@ -38,7 +38,7 @@ The equations governing the network of oscillator inspired by the CPG are the fo
 
 ![](images/EquationOscillator.PNG)
 
-where $x^{h}_p_i$, $y^{h}_p_i$ and $z^{h}_p_i$ are the i-th oscillator outputs that compose the position reference vector $X^{h}_p_i$ = 
+where $x^{h}_{pi}$, $y^{h}_{pi}$ and $z^{h}_{pi}$ are the i-th oscillator outputs that compose the position reference vector $X^{h}_{pi}$ = 
 
 
 Bibliography
