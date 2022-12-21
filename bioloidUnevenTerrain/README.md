@@ -38,8 +38,7 @@ The equations governing the network of oscillator inspired by the CPG are the fo
 
 ![](images/EquationOscillator.PNG)
 
-
-TO BE UPDATED...
+where $x^{h}_pi$
 
 
 Bibliography
