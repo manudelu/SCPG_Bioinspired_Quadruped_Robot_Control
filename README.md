@@ -1,6 +1,34 @@
 Implementation of a Spiking Neuronal Network for Quadruped Robot Control
 ================================
 
+Spiking Neural Networks
+---------------------------
+
+Artificial neural networks that closely mimic natural neural networks are known as spiking neural networks (SNNs). In addition to neuronal and synaptic status, SNNs incorporate time into their working model. The idea is that neurons in the SNN do not transmit information at the end of each propagation cycle, but only when a membrane potential – a neuron’s intrinsic quality related to its membrane electrical charge – reaches a certain value, known as the threshold.
+
+The neuron fires when the membrane potential hits the threshold, sending a signal to neighbouring neurons, which increase or decrease their potentials in response to the signal. A spiking neuron model is a neuron model that fires at the moment of threshold crossing.
+
+Alan Hodgkin and Andrew Huxley created the first scientific model of a Spiking Neural Network in 1952. The model characterized the initialization and propagation of action potentials in biological neurons. Biological neurons, on the other hand, do not transfer impulses directly. In order to communicate, chemicals called neurotransmitters must be exchanged in the synaptic gap. The leaky integrate-and-fire model (or a derivative) is commonly used as it is easier to compute than the Hodgkin–Huxley model.
+
+The general idea is as;
+
+* Each neuron has a value that is equivalent to the electrical potential of biological neurons at any given time.
+* The value of a neuron can change according to its mathematical model; for example, if a neuron gets a spike from an upstream neuron, its value may rise or fall.
+* If a neuron’s value surpasses a certain threshold, the neuron will send a single impulse to each downstream neuron connected to the first one, and the neuron’s value  will immediately drop below its average.
+* As a result, the neuron will go through a refractory period similar to that of a biological neuron. The neuron’s value will gradually return to its average over time.
+
+SNNs can stimulate the central nervous systems of biological animals, such as an insect seeking food in an unfamiliar environment. They can be used to examine the operation of biological brain networks due to their realism. 
+
+Starting with a hypothesis about the topology and function of a real neural circuit, recordings of this circuit can be compared to the output of the appropriate SNN to assess the hypothesis’ plausibility. However, adequate training processes for SNNs are lacking, which can be a hindrance in particular applications.
+
+Supervised Learning
+--------------------
+
+In supervised learning, data (the input) is accompanied by labels (the targets), and the learning device’s purpose is to correlate (classes of) inputs with the target outputs (a mapping or regression between inputs and outputs). An error signal is computed between the target and the actual output and utilized to update the network’s weights. 
+
+Supervised learning allows us to use the targets to directly update parameters, whereas reinforcement learning just provides us with a generic error signal (“reward”) that reflects how well the system is functioning. In practice, the line between the two types of supervised learning is blurred.
+
+
 CPGs - Central Pattern Generators
 --------------------------------
 
