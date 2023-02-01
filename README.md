@@ -13,6 +13,12 @@ In addition, a robotic controller was developed that implements the trained netw
 
 Keywords: Central Pattern Generators (CPG), Locomotion, Quadruped
 
+Introduction
+-------------------
+Central Pattern Generators (CPGs) are relatively small neural networks found in both vertebrates and invertebrates [4]. Especially, in vertebrates, they are located at the level of the spinal cord. The main function they serve involves the control of repetitive movements, such as locomotion, breathing and chewing, as they are responsible for generating rhythmic patterns for muscle activation. CPGs can perform their function autonomously even in the absence of sensory feedback from the peripheral nervous system (PNS) [7, 4] or signals from the central nervous system (CNS). However, some higher areas such as the motor cortex, cerebellum and basal ganglia can modulate the action of CPGs according to the environment [1, 6].
+The term "locomotion" refers to an animal's ability to move from point A to point B; locomotion is based on rhythmic and alternating movements of the whole body and its appendages, which must be able to adapt moment by moment according to environmental conditions. The rhythmic contraction and relaxation of muscles, regulated by the CPGs, drive the limbs in a specific order, generating the different gaits that are observed in animal locomotion [1]. Tasks such as avoiding obstacles or approaching prey require locomotion in a particular direction, at a desired speed [1]. CPGs must therefore be able to to generate multiple gaits, switching between them and adjusting their speed based on control signals from higher brain centers.
+The study of the mechanisms that regulate animal locomotion also finds application in the development of bio-inspired controllers for robotic locomotion. In this area, the development of mathematical models of CPG is of paramount importance. The goal of this project is to: (i) model a CPG network that governs the quadruped locomotion, capable of generating five gaits such as side walk, diagonal walk, gallop, bound and trot, (ii) implement a supervised learning algorithm to optimize the weights of the CPG network, (iii) develop a quadruped robot controller on the model basis of CPG and verify its effectiveness in a robotic simulation environment.
+
 Spiking Neural Networks
 ---------------------------
 
