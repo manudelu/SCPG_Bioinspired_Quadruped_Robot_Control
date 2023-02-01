@@ -1,6 +1,17 @@
 Implementation of a Spiking Neuronal Network for Quadruped Robot Control
 ================================
 
+Abstract
+----------------------
+Biorobotics can be defined as the science and technology of designing and implementing biologically inspired robotic systems. Its goals are:
+* Analyze and study how biological systems work and use these models to design new and better robotic systems that mimic the functionality of their biological counterparts;
+* Develop physical platforms equivalent to biological systems in order to experimentally test "models" of living systems and their functional principles.
+This thesis falls under the first objective and deals, in particular, with the locomotion of a quadruped robot. The control of locomotion is a complex problem in the field of robotics, despite the fact that it appears rather simple in nature. Learning to adapt one's gait to environmental changes plays an essential role in the locomotion of legged robots. 
+As a first step toward this goal, this thesis proposes the use of bio-inspired methodologies for the control of the locomotion of a robotic dog. In particular, a Central Pattern Generator, i.e., a small network of neurons capable of autonomously producing rhythmic activity, which biologically plays a key role in animal locomotion. This network is trained, through a stochastic learning algorithm, to reproduce five different gaits typical of quadrupeds.
+In addition, a robotic controller was developed that implements the trained network and dynamic oscillators for generating the trajectories of the quadruped robot's legs. The effectiveness of the control strategy proposed is verified in the Webots simulation environment, via the virtual version of the robotic dog Bioloid.
+
+Keywords: Central Pattern Generators (CPG), Locomotion, Quadruped
+
 Spiking Neural Networks
 ---------------------------
 
