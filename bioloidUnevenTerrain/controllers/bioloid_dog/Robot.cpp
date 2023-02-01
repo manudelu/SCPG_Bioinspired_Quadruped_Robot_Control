@@ -23,10 +23,17 @@
 #include <webots/robot.h>
 #include <webots/touch_sensor.h>
 #include <stdlib.h>
+#include <iostream>
 
 
-double status[16] = {-0.0215367628635059,-12.3706153890073,0.0215367628635059,-14.1293846109927,-0.0215367628635059,-12.3706153890073,0.0215367628635059,-14.1293846109927,-0.0215367628635059,-12.3706153890073,0.0215367628635059,-14.1293846109927,-0.0215367628635059,-12.3706153890073,0.0215367628635059,-14.1293846109927};
+/*
+ * Coordinates corresponding to the point of minimum of the ellipse obtained from the SingleOscillator file on Matlab
+*/
 
+double status[8] = {3.39509,-14.4202,3.39509,-14.4202,3.39509,-14.4202,3.39509,-14.4202};
+int Tcounter=-1;
+int activeLegs[2][4]={{0,0,0,0},{0,0,0,0}};
+int Tstep=0;
 /*
  * List of motors
  */
@@ -48,24 +55,16 @@ const char *Robot::MOTOR_NAMES[MAX_MOTORS + 1] = {"pelvis",
                                                   "head",
                                                   NULL};
 
-/*
-const double Robot::coupling_matrix[2][4][4] = {
-  {
-    //trot matrix
-    {0, -0.01, 0.01, -0.01},
-    {-0.01, 0, -0.01, 0.01},
-    {0.01, -0.01, 0, -0.01},
-    {-0.01, 0.01, -0.01, 0},
-  },
-  {
-    //walk matrix
-    {0, -0.01, -0.01, 0.01},
-    {-0.01, 0, 0.01, -0.01},
-    {0.01, -0.01, 0, -0.01},
-    {-0.01, 0.01, -0.01, 0}
-  }
-};
+/* 
+  * An optimized weigth matrix obtained from the training algorithm of the CPG network on Matlab
 */
+const double Robot::weight_matrix[4][9] = {
+   {1.007476010084515,  1.034766031485936,  1.247416995906897,  1.002486755463548,  1.028352077768091, -1.175706651793329,  0.235843881715507,  0.508411974537246,  1.600758868999196},
+   {0.498361614683065, -0.763570030490125,  1.022462778836312, -0.859227308934141,  0.798315452074044, 0.467010421216946, -1.953142058277499,  1.565533732601983,  1.027697962919844 },
+   {-0.465632135245856,  1.000102196741129,  0.654576930407270,  0.986235610510701,  0.100655007972642, 0.325183970760961,  1.415264932370531, -0.719463645275478,  0.253913393096928},
+   {0.292189599346787,  0.496048372182887,  0.997815045922253, -0.137824184573872, -0.877632889119022, 0.757633383973909,  1.029737723766476,  0.381049428321369,  -1.071844377409151}
+};
+
 
 const int Robot::gait_setup[4][2] = {{FRONT_LEFT_1, FRONT_LEFT_3},
                                      {FRONT_RIGHT_1, FRONT_RIGHT_3},
@@ -140,31 +139,156 @@ void Robot::standing() {
 
 void Robot::walking(int gait_type, double DC, double ztd, double time) {
  
-  int counter = 0; 
+  double T = 2.5280;               // Period [s]
+  double lastHalfPeriod = 0;            // Keep track of when last half period instant occurred
+   
+  // SETUP
+  // Parameters of LIF model
+  double decay_factor = 1.1;                 // α (decay factor), must be > 1 in order to be physically reasonable
+  int Vth = 1;  
+  int spkInPrevious[5][1] = {0};             // Last not null index of input spike of G_i to the network
+  int SpkIn[5][1] = {0};                     // Input spikes of G_i to the network          
+  int SpkCPG[4][1] = {0};                    // Spikes of network neurons N_i in the current time step                             // Spiking Threshold (normalized)
+  double membranePotentials[4][1] = {0};     // Membrane potentials of network neurons 
+     
+  int t = 0;                     // Counting variable
+  // fakeInputs 
+  int size = 9936; 
+  int fakeInputs[size] = {0};
+  fakeInputs[101] = 1;           // Walk
+  fakeInputs[500] = 2;          // Trot
+  fakeInputs[1000] = 3;          // Bound
+  fakeInputs[1500] = 4;          // Diagonal Walk
+  fakeInputs[2000] = 5;          // Gallop (not working)
+
+ // LOOP 
+ while (wb_robot_step(SIMULATION_STEP_DURATION) != -1)
+ {   
+   double TIME = wb_robot_get_time();
+    
+   // Find the indices of each nonzero element in array spkInPrevious
+   // the following array does have only one nonzero element at a time 
+   int find = 0;                  // Questa inizialmente era una funzione ma a Webots non piaceva..
+   for (int i = 0; i < 5; i++) {
+       if(spkInPrevious[i][0] != 0) {
+          find = i;
+       }
+    }
+    
+    // Read inputs vector to fake external inputs (Gait Selection)
+    // If fakeInputs[t] == 0, do nothing different, else initialize spkIn coherently.  
+    if (fakeInputs[t] != 0 && !(fakeInputs[t] == find)) {      
+      SpkIn[fakeInputs[t] - 1][0] = 1;  
+
+
+    } 
+ 
+    // At every half period of the sinusoid, evaluate SCPG network response
+    // to previous inputs. If new inputs are provided, change current gait
+    // to the new one.
+    if (TIME - lastHalfPeriod >= T/2) {
+      
+      lastHalfPeriod = TIME;    // Track last time there was a multiple of T
+      Tcounter = Tcounter + 1;  
+      Tstep = Tcounter % 2;   
+        // If there is a new input save previous gait command and then reset the network
+        for (int i = 0; i < 5; i++) {
+          if (SpkIn[i][0] != 0) {   
+                      
+              for (int j = 0; j < 5; j++) {
+                  spkInPrevious[j][0] = SpkIn[j][0];                 
+              }
+              for (int k = 0; k < 4; k++) {
+                  SpkCPG[k][0] = {0};                  
+                  membranePotentials[k][0] = {0};
+              } 
+           }
+        }  
+     
+        // Merging "spkIn[5][1]" and "spkCPG[4][1]" in a matrix "spk[9][1]"
+        int spk[9][1] = {0}; 
+        for (int i = 0; i < 9; i++) {
+            if (i <= 4) {
+              spk[i][0] = SpkIn[i][0];
+             }
+            else {
+              spk[i][0] = SpkCPG[i - 5][0];
+            }
+        }
+     
+        // Compute network response to current input (if no input is set, the network will do nothing)
+        double I[4][1] = {0}; 
+        for (int row = 0; row < 4; row++) {
+          for (int col = 0; col < 1; col++) {
+            // Multiply the row of "weight_matrix" by the column of "spk" to get the row, column of product.
+            for (int inner = 0; inner < 9; inner++) {
+                I[row][col] += weight_matrix[row][inner] * spk[inner][col];
+            }
+          }
+        }  
+        
+        // Compute the membranePotentials   
+        for (int i = 0; i < 4; i++) {
+            membranePotentials[i][0] = membranePotentials[i][0] / decay_factor + I[i][0];
+        }                                                                          
+      
+        // Neurons fire only when the threshold is surpassed
+        // If threshold is surpassed, membrane potentials of said neurons are reset
+        for (int i = 0; i < 4; i++) { 
+            if (membranePotentials[i][0] > Vth) {
+              SpkCPG[i][0] = 1;
+              membranePotentials[i][0] = 0;
+            }
+            else {
+              SpkCPG[i][0] = 0;
+            }
+         }
+             
+         // Reset input neurons
+         for (int i = 0; i < 5; i++) {
+            if (SpkIn[i][0] == 1){
+              SpkIn[i][0] = 0;
+            }
+         }
+           
+         // Print spkCPG
+         // printf("SpkCPG : \n");
+         // for (int i = 0; i < 4; i++) {
+              // printf("%d\n",SpkCPG[i][0]);
+         // } 
+         
+         for (int legId = 0; legId < 4; legId++) {
+        activeLegs[Tstep][legId]=SpkCPG[legId][0];
+        
+        if (activeLegs[Tstep][legId]==1 && activeLegs[0][legId]+activeLegs[1][legId] == 1){
+        status[2*legId]=3.39509;
+        status[2*legId+1]=-14.4202;
+        }
+      }
+
+    }
+    
   
-  while (wb_robot_step(SIMULATION_STEP_DURATION) != -1)
- { 
-  while(counter < (time*1000/16))
-  {
-    double motorPositions[2] = {0, 0};
-
-      computeTrajectory(status, gait_type, DC, ztd, _controlStep/1000, counter);
-
+      double motorPositions[2] = {0, 0};
+      
+      
+      computeTrajectory(status, gait_type, DC, ztd, _controlStep/1000, 0);  // al posto di "counter" ho messo 0, tanto non viene usata
+  
       // compute motors position for each legs
       for (int legId = 0; legId < 4; legId++) {
-        computeAnglePosition(motorPositions, status[2*legId], status[2*legId + 1]); //computeAnglePosition(motorPositions, status[8+2*legId], status[8+2*legId + 1]);
+        computeAnglePosition(motorPositions, status[2*legId], status[2*legId + 1]);
         setMotorPosition(gait_setup[legId][0], motorPositions[0]);
         setMotorPosition(gait_setup[legId][1], motorPositions[1]);
-      }
-         
-    // simulator step
-    wb_robot_step((unsigned int)_controlStep);
+        
+       }
+
+      // simulator step
+      wb_robot_step((unsigned int)_controlStep);
+     
+  t++;
     
-    //_stepCount++;
-    counter++;
-  }
-   // getTouchSensorValue();
-}
+  // getTouchSensorValue(); 
+  } 
 }
 
 void Robot::getTouchSensorValue() {
@@ -206,71 +330,68 @@ void Robot::computeAnglePosition(double *motorsPosition, double x, double y) {
 
   motorsPosition[0] = A1;
   motorsPosition[1] = A2;
-  
-  // printf("Angle A1 = %f\n",A1);
-  // printf("Angle A2 = %f\n",A2);
-  // printf("Angle x = %f\n",x);
-  // printf("Angle y = %f\n",y);
+
+
 }
 
 /*
- * Compute x and y values
+ * Compute x and y values: reads the output of the contact sensors to update the Ztd value for each leg
+ * (determines wether and by when to cut the ellipse) and integrates the system of four oscillators
  */
 void Robot::computeTrajectory(double *status, int mat_ind, double D,float ztd, double dt, int counter) {
+ 
   float a = 1;
   float b = 500;
   float c = 0.5;
   
-  float L = 17.100; //L = 8.55
+  float L = 10;//17.100; //L = 8.55
   float H = 0.8706; //H =0.875
   
   
   //float D = 0.5;  //duty cylce
-  float Vx = 1; 
-  float Vz = 0;
+  //float Vx = 1; 
+  //float Vz = 0;
   float Vf = 0;
-   //componenti x e z di Vf: la componente z è nulla perchè Vf è la velocità di avanzamento
-  float bf = 50;  //influenza la smoothness del taglio
-  float K = 200;  //deve essere impostato ad almeno 10*Vf (l'ho messo a 200 dato che per il trotto usiamo Vf=20)
+  //componenti x e z di Vf: la componente z è nulla perchè Vf è la velocità di avanzamento
+  //float bf = 50;  //influenza la smoothness del taglio
+  //float K = 200;  //deve essere impostato ad almeno 10*Vf (l'ho messo a 200 dato che per il trotto usiamo Vf=20)
   
   if(mat_ind == 0)
   {
-  
     Vf = 50;  //Componente x della Velocità di avanzamento
   }
   else if(mat_ind == 1)
   {
-  
     Vf = 32*2; //Avendo cambiato il SIMULATION_STEP_DURATION da 16 a 10, che regola il passo di integrazione, devo modificare anche la velocità per mantenerla uguale a prima
   }
   
   // Componenti x e z di Vf
-  float V[2] = {Vx*Vf , Vz*Vf}; 
+  //float V[2] = {Vx*Vf , Vz*Vf}; 
   
-     
-  int front_left_force = wb_touch_sensor_get_value(touch_sensor_FRONT_LEFT);		/* scrive il numero */
-  int front_right_force = wb_touch_sensor_get_value(touch_sensor_FRONT_RIGHT);	
-  int back_left_force = wb_touch_sensor_get_value(touch_sensor_BACK_LEFT);	
-  int back_right_force = wb_touch_sensor_get_value(touch_sensor_BACK_RIGHT); 
+  
+  //int front_left_force = wb_touch_sensor_get_value(touch_sensor_FRONT_LEFT);		/* scrive il numero */
+  //int front_right_force = wb_touch_sensor_get_value(touch_sensor_FRONT_RIGHT);	
+  //int back_left_force = wb_touch_sensor_get_value(touch_sensor_BACK_LEFT);	
+  //int back_right_force = wb_touch_sensor_get_value(touch_sensor_BACK_RIGHT); 
  
-  
+/*  
   float ztd1 = -1*H;  //coordinata z del taglio rispetto all'asse orizzontale dell'ellisse
   float ztd2 = -1*H;   //coordinata z del taglio rispetto all'asse orizzontale dell'ellisse
   float ztd3 = -1*H;    //coordinata z del taglio rispetto all'asse orizzontale dell'ellisse
   float ztd4 = -1*H;   //coordinata z del taglio rispetto all'asse orizzontale dell'ellisse
-
+*/
   
-  float x0 = 0; //x0 = 3;  // coordinata x del centro
+  float x0 = 3; //x0 = 3;  // coordinata x del centro
   //float x034 = 0;  
   float z012 = -13.25; // coordinata y del centro
   float z034 = -13.25;  //-12.75
   double dxdt[8];
   double dzdt[8];
-  double A1[4]={getMotorPosition(gait_setup[0][0]),getMotorPosition(gait_setup[1][0]),getMotorPosition(gait_setup[2][0]),getMotorPosition(gait_setup[3][0])};
-  double A2[4]={getMotorPosition(gait_setup[0][1]),getMotorPosition(gait_setup[1][1]),getMotorPosition(gait_setup[2][1]),getMotorPosition(gait_setup[3][1])};
-  double z_real[4]={-L1*cos(-A1[0])-L2*cos(-A2[0]-A1[0]),-L1*cos(-A1[1])-L2*cos(-A2[1]-A1[1]),-L1*cos(-A1[2])-L2*cos(-A2[2]-A1[2]),-L1*cos(-A1[3])-L2*cos(-A2[3]-A1[3])};
+ // double A1[4]={getMotorPosition(gait_setup[0][0]),getMotorPosition(gait_setup[1][0]),getMotorPosition(gait_setup[2][0]),getMotorPosition(gait_setup[3][0])};
+ // double A2[4]={getMotorPosition(gait_setup[0][1]),getMotorPosition(gait_setup[1][1]),getMotorPosition(gait_setup[2][1]),getMotorPosition(gait_setup[3][1])};
+ // double z_real[4]={-L1*cos(-A1[0])-L2*cos(-A2[0]-A1[0]),-L1*cos(-A1[1])-L2*cos(-A2[1]-A1[1]),-L1*cos(-A1[2])-L2*cos(-A2[2]-A1[2]),-L1*cos(-A1[3])-L2*cos(-A2[3]-A1[3])};
   
-  
+/*  
 if(counter > 100) {               
   if(front_left_force == 1){               //Se il sensore vale 1,quindi la zampa tocca il terreno/l'ostacolo, 
                                            //modifico il movimento della zampa,tagliando l'ellisse
@@ -331,7 +452,7 @@ if(counter > 100) {
       ztd4 = -1*H;
   }
  }
-  
+  */
   
   /*
   status[16] represents all the 16 variables in order
@@ -357,11 +478,11 @@ if(counter > 100) {
   double s11 = 1/(exp(-b*(status[1]-z012))+1);
   double s12 = 1/(exp(b*(status[1]-z012))+1);
   double w1 = (M_PI*Vf/L)*((D/(1-D)*s11+s12));
-  
+ 
   double s21 = 1/(exp(-b*(status[3]-z012))+1);
   double s22 = 1/(exp(b*(status[3]-z012))+1);
   double w2 = (M_PI*Vf/L)*((D/(1-D)*s21+s22));
-  
+ 
   double s31 = 1/(exp(-b*(status[5]-z034))+1);
   double s32 = 1/(exp(b*(status[5]-z034))+1);
   double w3 = (M_PI*Vf/L)*((D/(1-D)*s31+s32));
@@ -369,7 +490,7 @@ if(counter > 100) {
   double s41 = 1/(exp(-b*(status[7]-z034))+1);
   double s42 = 1/(exp(b*(status[7]-z034))+1);
   double w4 = (M_PI*Vf/L)*((D/(1-D)*s41+s42));
-  
+  /*
   double s1_f1 = 1/((exp(-bf*(status[1]-z012-ztd1))+1));
   double s1_f2 = 1/((exp(bf*(status[1]-z012-ztd1))+1));
   
@@ -381,19 +502,19 @@ if(counter > 100) {
   
   double s4_f1 = 1/((exp(-bf*(status[7]-z034-ztd4))+1));
   double s4_f2 = 1/((exp(bf*(status[7]-z034-ztd4))+1));
-  
+  */
   dxdt[0] = a*(1-(4*pow((status[0]-x0),2)/(L*L))-pow((status[1]-z012),2)/(H*H))*(status[0]-x0)+(w1*L/(2*H))*(status[1]-z012);
   dzdt[0] = c*(1-(4*pow((status[0]-x0),2)/(L*L))-pow((status[1]-z012),2)/(H*H))*(status[1]-z012)-(w1*2*H/L)*(status[0]-x0);//+(coupling_matrix[mat_ind][0][0])*(status[1]-z012)+(coupling_matrix[mat_ind][0][1])*(status[3]-z012)+(coupling_matrix[mat_ind][0][2])*(status[5]-z034)+(coupling_matrix[mat_ind][0][3])*(status[7]-z034); 
 
   dxdt[1] = a*(1-(4*pow((status[2]-x0),2)/(L*L))-pow((status[3]-z012),2)/(H*H))*(status[2]-x0)+(w2*L/(2*H))*(status[3]-z012);
   dzdt[1] = c*(1-(4*pow((status[2]-x0),2)/(L*L))-pow((status[3]-z012),2)/(H*H))*(status[3]-z012)-(w2*2*H/L)*(status[2]-x0);//+(coupling_matrix[mat_ind][1][0])*(status[1]-z012)+(coupling_matrix[mat_ind][1][1])*(status[3]-z012)+(coupling_matrix[mat_ind][1][2])*(status[5]-z034)+(coupling_matrix[mat_ind][1][3])*(status[7]-z034);
-  
+ 
   dxdt[2] = a*(1-(4*pow((status[4]-x0),2)/(L*L))-pow((status[5]-z034),2)/(H*H))*(status[4]-x0)+(w3*L/(2*H))*(status[5]-z034);
   dzdt[2] = c*(1-(4*pow((status[4]-x0),2)/(L*L))-pow((status[5]-z034),2)/(H*H))*(status[5]-z034)-(w3*2*H/L)*(status[4]-x0);//+(coupling_matrix[mat_ind][2][0])*(status[1]-z012)+(coupling_matrix[mat_ind][2][1])*(status[3]-z012)+(coupling_matrix[mat_ind][2][2])*(status[5]-z034)+(coupling_matrix[mat_ind][2][3])*(status[7]-z034);
 
   dxdt[3] = a*(1-(4*pow((status[6]-x0),2)/(L*L))-pow((status[7]-z034),2)/(H*H))*(status[6]-x0)+(w4*L/(2*H))*(status[7]-z034);
   dzdt[3] = c*(1-(4*pow((status[6]-x0),2)/(L*L))-pow((status[7]-z034),2)/(H*H))*(status[7]-z034)-(w4*2*H/L)*(status[6]-x0);//+(coupling_matrix[mat_ind][3][0])*(status[1]-z012)+(coupling_matrix[mat_ind][3][1])*(status[3]-z012)+(coupling_matrix[mat_ind][3][2])*(status[5]-z034)+(coupling_matrix[mat_ind][3][3])*(status[7]-z034);
-
+/*
   dxdt[4] = (dxdt[0] + K*(status[0]-status[8]))*s1_f1 - V[0]*s1_f2;
   dzdt[4] = (dzdt[0] + K*(status[1]-status[9]))*s1_f1 - V[1]*s1_f2;
 
@@ -405,34 +526,28 @@ if(counter > 100) {
 
   dxdt[7] = (dxdt[3] + K*(status[6]-status[14]))*s4_f1 - V[0]*s4_f2;
   dzdt[7] = (dzdt[3] + K*(status[7]-status[15]))*s4_f1 - V[1]*s4_f2;
-  
+ */ 
   
   //Metodo di Eulero esplicito
-  for(int i = 0; i < 8; i++)
-  {
+  FILE *f1 = fopen("status.txt", "a");
+    if (f1 == NULL)
+    {
+        printf("Error opening file!\n");
+        exit(1);
+    }
+   
+   for(int i = 0; i < 4; i++)                     
+  { 
+  if (activeLegs[0][i]+activeLegs[1][i] ==1){
     status[2*i] = status[2*i] + dt * dxdt[i];
-    
-    // FILE *f1 = fopen("status.txt", "a");
-    // if (f1 == NULL)
-    // {
-        // printf("Error opening file!\n");
-        // exit(1);
-    // }
-    // fprintf(f1,"%f\n",status[2*i]);
-    
     status[2*i + 1] = status[2*i + 1] + dt * dzdt[i];
-    
-    // fprintf(f1,"%f\n",status[2*i+1]);
-    // fclose(f1);
-  }
-  // printf("z1 = %f\n",z_real[0]);
-  // printf("stat1 = %f\n",status[9]);
-  // printf("z2 = %f\n",z_real[1]);
-  // printf("stat2 = %f\n",status[11]);
-  // printf("z3 = %f\n",z_real[2]);
-  // printf("stat3 = %f\n",status[13]);
-  // printf("z4 = %f\n",z_real[3]);
-  // printf("stat4 = %f\n",status[15]);
+   }
+   fprintf(f1,"%f,%f,",status[2*i],status[2*i+1]); 
+ }
+
+  double TIME = wb_robot_get_time();
+  fprintf(f1,"%f",TIME);
+  fprintf(f1,"\n");
+  fclose(f1);
+
 }
-
-

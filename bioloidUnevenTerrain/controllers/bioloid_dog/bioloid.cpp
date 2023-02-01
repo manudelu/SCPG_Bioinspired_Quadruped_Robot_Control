@@ -37,25 +37,9 @@ int main()
   const char *robotName = wb_robot_get_name();
   robot = new Robot(robotName);
   
-  //
-  
-  float decayFactor = 1.1; // alpha
-  int Vth = 1; // Threshold membrane potential (normalized)
- 
-  
-  
-  
-  
-  //
-  
-  
-  
-  
   robot->standing();
-  
   // index 0 for trot, 1 for walk
-  robot -> walking(1, 0.5, -1, 100); //(1,0.5,-1,100)
-  
+  robot -> walking(0, 0.5, -1, 100); //(1,0.5,-1,100)
   
   delete robot;
 

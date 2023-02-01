@@ -91,6 +91,7 @@ public:
 
   static const char *MOTOR_NAMES[MAX_MOTORS + 1];
   static const double coupling_matrix[2][4][4];
+  static const double weight_matrix[4][9];
   static const int gait_setup[4][2];
 
 private:
