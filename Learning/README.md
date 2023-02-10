@@ -1,4 +1,4 @@
-Learning Algorithm
+Supervised Learning Algorithm
 ==========================================
 
 Spiking Patterns:
