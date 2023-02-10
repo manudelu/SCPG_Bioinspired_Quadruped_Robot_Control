@@ -1,6 +1,8 @@
 Supervised Learning Algorithm
 ==========================================
 
+A supervised training algorithm is a type of machine learning algorithm where the model is trained on a labeled dataset. In this type of algorithm, the model is given input-output pairs and the goal is to learn the mapping from inputs to outputs. The model makes predictions based on the input data and then the algorithm compares the predicted output with the actual output (also known as label or ground truth) to calculate the error. This error is then used to update the model parameters so that the prediction error is minimized, allowing the model to improve its accuracy with each iteration. This process continues until the model reaches a satisfactory level of accuracy or a stopping criterion is met.
+
 Spiking Patterns:
 --------------------------------
 
