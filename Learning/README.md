@@ -19,7 +19,7 @@ obtained spiking patterns identical. If the obtained and required spike patterns
 repeated for every gait. At each instant of the sequence, the number of erroneous spikes constitutes the network error. For all gaits, with the random initialization, the error oscillates and finally converges to zero indicating correct programming of the gait pattern in the SCPG. 
 
 
-Spiking Patterns:
+Spiking Patterns
 --------------------------------
 
 * Lateral Walk (Camminata Laterale): 
