@@ -81,18 +81,6 @@ There will then be 5 gait selection neurons (G_i) each of which will activate a 
 
 Remark: More details will be described in the README within the folder named Learning.
 
-HCO (Half-Center Oscillator)
-------------------------------
-
-![](images/Half-Center_Oscillator.PNG)
-
-Rhythm generation in CPG networks depends on the intrinsic properties of CPG neurons and their synaptic connections.
-
-The circuits that generate this alternating rhythmic activity have been highlighted mainly at the level of the spinal cord and are based on half-center circuits. The role of the inhibitory (red) neurons in the figure is to produce reciprocal inhibition: that is, when N1 is active it excites the inhibitory interneuron, which goes on to inhibit the antagonistic N2 one. Thus, through rhythmic mechanisms, either the neurons controlling the alpha motor neuron of the flexor muscle or those controlling the alpha motor neuron of the extensor muscle are active. (They are never active at the same time!!!) 
-
-One important thing is that the motor neurons generating this activity can modulate their frequency according to the signals coming from the higher center. Normally these circuits generate basal rhythmic activity (associated with a certain frequency of activity). To increase or decrease this frequency requires a signal from the higher centers to go to stimulate these circuits. So these circuits alone cannot change the locomotor rhythmic activity; in order to modulate this activity, a signal from the higher centers is needed.
-
-In this case I have two mutually inhibited neurons: the HCO is in charge of regulating the flexor and extensor muscles of the single leg. Thus, each CPG can be activated independently.
 
 Bibliography
 -------------------------------
