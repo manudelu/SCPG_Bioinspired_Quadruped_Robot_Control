@@ -63,6 +63,8 @@ Remark:
  The Network Structure of the Central Pattern Generator
  -----------------------------------
  
+![](images/DCPG.png)
+ 
 The SCPG network is composed of 4 "spiking" neurons fully connected. Each neuron corresponds to one leg and spikes to activate the servo motor of the corresponding leg. The first goal of this work is to obtain a single CPG capable of reproducing multiple gaits, each of which can be triggered by a different "gait selection neuron" which mimics the action of higher brain area. We use 5 gait selection neurons (G1, G2,...,G5) to enable five different gaits: lateral walk, diagonal walk, gallop, trot and bound. To choose the gait pattern desired, one gait selection neuron stimulates a subset of CPG neurons to fire in a particular sequence and enable a designed locomotion gait. All the CPG neurons are connected to the gait selection neurons with excitatory synapses. To emulate the dynamics of each neuron, we use a discretized leaky integrate and fire (LIF) model with membrane potential (Vj) expressed as:
 
 ![](https://latex.codecogs.com/png.latex?%5Cbg_white%20Vj%5Bt&plus;1%5D%20%3D%20%5Cfrac%7BVj%5Bt%5D%7D%7B%5Calpha%7D%20&plus;%20%5Csum_%7Bi%7DW_i_jS_i%5Bt%5D) 
