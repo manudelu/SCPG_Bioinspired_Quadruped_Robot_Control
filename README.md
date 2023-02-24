@@ -22,3 +22,7 @@ Central Pattern Generators (CPGs) are relatively small neural networks found in 
 The term "locomotion" refers to an animal's ability to move from point A to point B; locomotion is based on rhythmic and alternating movements of the whole body and its appendages, which must be able to adapt moment by moment according to environmental conditions. The rhythmic contraction and relaxation of muscles, regulated by the CPGs, drive the limbs in a specific order, generating the different gaits that are observed in animal locomotion. Tasks such as avoiding obstacles or approaching prey require locomotion in a particular direction, at a desired speed. CPGs must therefore be able to to generate multiple gaits, switching between them and adjusting their speed based on control signals from higher brain centers.
 
 The study of the mechanisms that regulate animal locomotion also finds application in the development of bio-inspired controllers for robotic locomotion. In this area, the development of mathematical models of CPG is of paramount importance. The main objectives of this thesis are to (i) model a CPG network that governs the quadruped locomotion, capable of generating five gaits such as side walk, diagonal walk, gallop, bound and trot, (ii) implement a supervised learning algorithm to optimize the weights of the CPG network, (iii) develop a quadruped robot controller on the model basis of CPG and (iv) verify its effectiveness in a robotic simulation environment.
+
+
+
+Note: This project may be subject to future changes and improvements.
