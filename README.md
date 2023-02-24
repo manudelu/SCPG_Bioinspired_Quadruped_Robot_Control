@@ -23,12 +23,6 @@ The term "locomotion" refers to an animal's ability to move from point A to poin
 
 The study of the mechanisms that regulate animal locomotion also finds application in the development of bio-inspired controllers for robotic locomotion. In this area, the development of mathematical models of CPG is of paramount importance. The main objectives of this thesis are to (i) model a CPG network that governs the quadruped locomotion, capable of generating five gaits such as side walk, diagonal walk, gallop, bound and trot, (ii) implement a supervised learning algorithm to optimize the weights of the CPG network, (iii) develop a quadruped robot controller on the model basis of CPG and (iv) verify its effectiveness in a robotic simulation environment.
 
-State of Art 
--------------
-
-The interaction between biology and robotics can be developed in two directions: robotics takes inspiration from mechanisms to develop innovative control technologies, but, at the same time, an increasing number of projects seek to change perspectives, using robots as scientific tools to validate biological models. The development of CPG-based control of robot locomotion is interesting not only for understanding animal locomotion systems, but also because it can provide agile, robust, and energy-efficient control during movement in complex environments [6].
-
-
 Spiking Neural Networks
 ---------------------------
 
