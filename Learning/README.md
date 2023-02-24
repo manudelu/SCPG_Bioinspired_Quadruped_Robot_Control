@@ -6,7 +6,7 @@ A supervised training algorithm is a type of machine learning algorithm where th
 Spiking Patterns:
 --------------------------------
 
-* Walk: 
+* Lateral Walk (Camminata Laterale): 
 
 |    |t1 |t2 |t3 |t4 |
 |----|---|---|---|---|
@@ -14,8 +14,26 @@ Spiking Patterns:
 | N2 | 0 | 0 | 1 | 0 |
 | N3 | 0 | 0 | 0 | 1 |
 | N4 | 0 | 1 | 0 | 0 |
+
+* Diagonal Walk (Camminata Diagonale):
+
+|    |t1 |t2 |t3 |t4 |
+|----|---|---|---|---|
+| N1 | 1 | 0 | 0 | 0 |
+| N2 | 0 | 0 | 1 | 0 |
+| N3 | 0 | 1 | 0 | 0 |
+| N4 | 0 | 0 | 0 | 1 |
    
-* Trot:
+* Gallop (Galoppo): 
+
+|    |t1 |t2 |t3 |t4 |
+|----|---|---|---|---|
+| N1 | 1 | 0 | 0 | 0 |
+| N2 | 0 | 1 | 0 | 0 |
+| N3 | 0 | 0 | 1 | 0 |
+| N4 | 0 | 0 | 0 | 1 |   
+   
+* Trot (Trotto):
 
 |    |t1 |t2 |
 |----|---|---|
@@ -24,7 +42,7 @@ Spiking Patterns:
 | N3 | 1 | 0 |
 | N4 | 0 | 1 | 
 
-* Bound:
+* Bound (Saltello):
 
 |    |t1 |t2 |
 |----|---|---|
@@ -32,24 +50,6 @@ Spiking Patterns:
 | N2 | 1 | 0 | 
 | N3 | 0 | 1 |
 | N4 | 0 | 1 | 
- 
-* Diagonal Walk:
-
-|    |t1 |t2 |t3 |t4 |
-|----|---|---|---|---|
-| N1 | 1 | 0 | 0 | 0 |
-| N2 | 0 | 0 | 1 | 0 |
-| N3 | 0 | 1 | 0 | 0 |
-| N4 | 0 | 0 | 0 | 1 |
-
-* Gallop: 
-
-|    |t1 |t2 |t3 |t4 |
-|----|---|---|---|---|
-| N1 | 1 | 0 | 0 | 0 |
-| N2 | 0 | 1 | 0 | 0 |
-| N3 | 0 | 0 | 1 | 0 |
-| N4 | 0 | 0 | 0 | 1 |
 
 Each gait sequence (Walk, Trot, Bound, Diagonal Walk and Gallop) must be repeated more than once during the learning process, otherwise you'll get a network that cannot stably reproduce gait. So we set a number of repetitions: ```reps = 10```.
 
