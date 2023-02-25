@@ -1,4 +1,4 @@
-Block Diagram Controller
+Block Diagram of the Controller
 ----------------------------
 
 ![](images/BlockDiagram.png)
